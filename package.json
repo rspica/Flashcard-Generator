@@ -1,0 +1,23 @@
+{
+  "name": "flashcard_generator",
+  "version": "1.0.0",
+  "description": "commandline app to generate two types of flashcards as study aids",
+  "main": "ClozeCard.js",
+  "dependencies": {
+    "inquirer": "^3.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rspica/Flashcard-Generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rspica/Flashcard-Generator/issues"
+  },
+  "homepage": "https://github.com/rspica/Flashcard-Generator#readme"
+}
