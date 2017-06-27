@@ -1,3 +1,5 @@
+//checks user input values for cloze
+
 const clozeCard = require('./clozeCard.js');
 const fullText = clozeCard.fullText;
 const cloze = clozeCard.cloze;
@@ -15,4 +17,4 @@ const clozeCompare = function clozeCompare(fullText, cloze) {
     }
 }
 
-module.exports = clozeCompare;
+module.exports = clozeCard;

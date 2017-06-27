@@ -1,5 +1,8 @@
 // writes record of flash card entry
-module.exports = function writeRecord(cardType, question, solution) {
+
+const fs = require('fs');
+
+function writeRecord(cardType, question, solution) {
     // console.log("cardfront: ", question);
     // console.log("cardback: ", solution);
     // console.log("cardType: ", cardType);

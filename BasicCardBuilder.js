@@ -1,6 +1,16 @@
 // basic flashcard builder with cli
 
-function basicFlash(cardType) {
+const inquirer = require("inquirer");
+const cardCLI = require('./cardCLI.js');
+const BasicCard = require('./basicCard.js'); //basic flashcard constructor
+const cardLog = require('./cardlog.js'); //logs results to Basic_card.txt file
+
+
+// stores all instances of the newly created card objects into the array, this will be put to future use to make random card generator.
+const basicFlashCard = []; 
+
+
+const basicFlash = function basicFlash(cardType) {
     inquirer.prompt([{
             type: "input",
             name: "basicText",
@@ -18,7 +28,9 @@ function basicFlash(cardType) {
             let newBasicCard = new BasicCard(cardFront, cardBack) // creates new basic card object
             basicFlashCard.push(newBasicCard); /// stores all instances of the newly created card object
             console.log('new Basic Card: ', newBasicCard)
-            let writeRecord = cardLog(cardType, cardFront, cardBack); //call the function to write the new instace of BasicCard to a .txt file
+            let cardLog = writeRecord(cardType, cardFront, cardBack); //call the function to write the new instace of BasicCard to a .txt file
             startCard(); // starts the card generator process after current card is complete 
         });
 }
+
+module.exports = cardLog;
