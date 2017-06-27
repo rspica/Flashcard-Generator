@@ -17,6 +17,6 @@ module.exports = BasicCard;
 // * Look up scope-safe constructors, and try to implement them. It takes only two additional lines of code.
 
 
-// BasicCard.prototype.newCard = function newCard() {
-//     console.log("basic card input record; front of card: ", this.front, +" back of card: " + this.back);
+// BasicCard.prototype.newCard = function newCard(front, back) {
+//     console.log("basic card input record; front of card: ", front, +" back of card: " + back);
 // }

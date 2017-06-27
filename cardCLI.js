@@ -1,19 +1,22 @@
 const fs = require('fs');
 const inquirer = require("inquirer");
-const clozeCard = require('./clozeCard.js')
+const ClozeCard = require('./clozeCard.js')
 const BasicCard = require('./basicCard.js');
+
+const basicFlashCard = [];
+const clozeFlashCard = [];
 
 const questions = {
     type: "rawlist",
     name: "cardType",
     message: "what kind of flashcard would you like to make?",
-    choices: ["basic card", "Cloze card"]
+    choices: ["Basic card", "Cloze card"]
 }
 
 function startCard() {
     inquirer.prompt(questions).then(function(answer) {
-    	let fCardType = answer.cardType;
-        if (answer.cardType === "Cloze card") {
+        let fCardType = answer.cardType;
+        if (fCardType === "Cloze card") {
             clozeFlash(fCardType)
 
         } else {
@@ -24,7 +27,7 @@ function startCard() {
 
 // validates that user enters a response to the question
 function validateInput(name) {
-    if (name === " ") {
+    if (name === "" || name === " ") {
         console.log('Please enter the flashcard response')
     } else {
         return name !== '';
@@ -32,12 +35,17 @@ function validateInput(name) {
 }
 
 // writes record of flash card entry
-function writeRecord(Card, cardType) {
-	fs.appendFile(cardType+'.txt', '************************\n', + 'Question: ' + card.cardFront + '\n' + 'Answer: ' + card.cardFront + '\n')
-}
+function writeRecord(card, cardType) {
+//     fs.appendFile(cardType + '.txt', '************************\n', +'Question: ' + card.cardFront + '\n' + 'Answer: ' + card.cardback + '\n', function(err) {
+//         if (err) {
+//             console.log('Oh boy something bad just went down, error: ', err)
+//         }
+//     });
+// }
 
+}
 // cloze card prompts and action
-function clozeFlash(cType) {
+function clozeFlash(cardType) {
     inquirer.prompt([{
             type: "input",
             name: "clozeText",
@@ -50,16 +58,27 @@ function clozeFlash(cType) {
             validate: validateInput
         }])
         .then(function(answer) {
-            console.log("cloze is working ");
-            console.log("answer is: ", answer.clozeText);
-            console.log("the deletion: ", answer.clozeDelete);
+            let text = answer.clozeText;
+            let deletion = answer.clozeDelete
+            var newClozeCard = new ClozeCard(text, deletion) // creates new clozeCard object
+       //     clozeFlashCard.push(newClozeCard) // stores all instances of the newly created cloze card objects into the array.
+console.log("new cloze card: ",newClozeCard)
+console.log('partial: ', newClozeCard.clozeRemoved);
+console.log('concat partial: ',newClozeCard.partial[0]+" ******* "+newClozeCard.partial[1]);
+
+// var clozeFront = ClozeCard.fulltext
+// 	var clozeFront.split(" ") {
+//       		for (var i = 0; i < Things.length; i++) {
+//           	console.log(fullText[i]);
+//        	}
+//        }
             startCard();
         });
-} // this end the clozeCard function statement
+} // this end the clozeFlash function statement
 
-function basicFlash(cType) {
+function basicFlash(cardType) {
     inquirer.prompt([{
-        	type: "input",
+            type: "input",
             name: "basicText",
             message: "Enter the full question for the front of the flashcard: ",
             validate: validateInput
@@ -72,9 +91,11 @@ function basicFlash(cType) {
         .then(function(answer) {
             var cardFront = answer.basicText;
             var cardBack = answer.basicAnswer;
-            var newBasicCard = new BasicCard()
-            BasicCard.newBasicCard(cardFront, cardBack);
-            writeRecord(newCard, cType); //call the function to write the new instace of BasicCard to a .txt file
+            var newBasicCard = new BasicCard(cardFront, cardBack) // creates new basic card object
+            basicFlashCard.push(newBasicCard); // stores all instances of the newly created basic card objects into the array basicFlashCards
+            console.log('new Basic Card: ',newBasicCard)
+            writeRecord(newBasicCard, cardType); //call the function to write the new instace of BasicCard to a .txt file
+            console.log("new basic card: ",newBasicCard)
             startCard(); // starts the card generator process after current card is complete 
         });
 }
