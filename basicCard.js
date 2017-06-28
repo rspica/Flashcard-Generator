@@ -1,4 +1,6 @@
-const BasicCard = function BasicCard(front, back) {
+// constructor for new basic flashcard objects
+
+const BasicCard = function(front, back) {
     if (this instanceof BasicCard) { //conditional allows users to call constructor with or without the `new` keyword
         this.front = front; //front of card; holds the question
         this.back = back; // back of card; holds the answer
@@ -17,6 +19,3 @@ module.exports = BasicCard;
 // * Look up scope-safe constructors, and try to implement them. It takes only two additional lines of code.
 
 
-// BasicCard.prototype.newCard = function newCard(front, back) {
-//     console.log("basic card input record; front of card: ", front, +" back of card: " + back);
-// }

@@ -11,7 +11,7 @@ const clozeCompare = function clozeCompare(fullText, cloze) {
             console.log('everything matches up, lets go!');
             return true
         } else {
-            // console.error('oops, something when wrong ' + cloze + 'does not appear in ' + fulltext)
+            console.error('oops, something when wrong ' + cloze + 'does not appear in ' + fulltext)
             return false
         }
     }

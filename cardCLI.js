@@ -39,11 +39,9 @@ function validateInput(name) {
 function writeRecord(cardType, question, solution) {
     console.log("cardfront: ", question);
     console.log("cardback: ", solution);
-    console.log("cardType: ", cardType);
-    let fileName = cardType.split(' ').join("_");
-    console.log("fileName: ", fileName);
 
-    fs.appendFile(fileName + '.txt', '\n\n************************\n' + 'Question: ' + question + '\n' + 'Answer: ' + solution + '\n', function(err) {
+    let fileName = cardType.split(' ').join("_");
+    fs.appendFile(fileName + '.txt', '\n\n************************\n' + 'Question: ' + question + '\n\n' + 'Answer: ' + solution + '\n', function(err) {
         if (err) {
             console.error('Oh boy something bad just went down, error: ', err)
         }
@@ -67,7 +65,6 @@ function clozeFlash(cardType) {
         .then(function(answer) {
             let text = answer.clozeText;
             let deletion = answer.clozeDelete
-            if (inputCheck) {
             let newClozeCard = new ClozeCard(text, deletion); // creates new clozeCard object
             clozeFlashCard.push(newClozeCard); // stores all instances of the newly created card object
             let question = newClozeCard.partial;
@@ -75,10 +72,6 @@ function clozeFlash(cardType) {
             console.log("User input cloze: ", newClozeCard.cloze);
             console.log("Cloze card with deletion: ", newClozeCard.partial);
             writeRecord(cardType, question, text); //call the function to write the new instace of BasicCard to a .txt file
-            } else {
-            	console.error('oops, something when wrong ' + cloze + 'does not appear in ' + fulltext)
-            }
-           
             startCard();
         });
 } // this end the clozeFlash function statement
@@ -102,7 +95,7 @@ function basicFlash(cardType) {
             let newBasicCard = new BasicCard(cardFront, cardBack) // creates new basic card object
             basicFlashCard.push(newBasicCard); /// stores all instances of the newly created card object
             console.log('new Basic Card: ', newBasicCard)
-            let writeRecord = cardLog(cardType, cardFront, cardBack); //call the function to write the new instace of BasicCard to a .txt file
+            writeRecord(cardType, cardFront, cardBack); //call the function to write the new instace of BasicCard to a .txt file
             startCard(); // starts the card generator process after current card is complete 
         });
 }

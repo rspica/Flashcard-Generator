@@ -1,8 +1,8 @@
 // constructor for new cloze flash card objects
 
-const inputCheck = require('./inputCheck.js')
+// const inputCheck = require('./inputCheck.js')
 
-const ClozeCard = function ClozeCard(fullText, cloze) {
+const ClozeCard = function(fullText, cloze) {
     if (this instanceof ClozeCard) { //if statement allows users to call constructor with or without the `new` keyword
         this.cloze = cloze; // contains only deleted portion of text
         this.fullText = fullText; // full text, nothing missing
@@ -21,11 +21,22 @@ ClozeCard.prototype.partial = function() {
 }
 
 
-// ClozeCard.prototype.error = function() {
+ClozeCard.prototype.error = function(fullText, cloze) {
+    let textArr = fulltext.split(' ')
+    for (let i = 0; i < textArr.length; i++) {
+        if (cloze === textArr[i]) {
+            console.log('everything matches up, lets go!');
+            return true
+        } else {
+            console.error('oops, something when wrong ' + cloze + 'does not appear in ' + fulltext)
+            return false
+        }
+    }
+}
 
 
 module.exports = ClozeCard;
-module.exports = inputCheck;
+// module.exports = inputCheck;
 // ### Bonuses
 
 // * Write your constructors such that users can call them with or without the `new` keyword. 
